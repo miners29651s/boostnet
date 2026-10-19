@@ -116,6 +116,10 @@ footer {border-top:1px solid var(--border);padding:30px 0;color:var(--muted);fon
   h1 {letter-spacing:-1.5px}
   .banner {flex-direction:column;align-items:flex-start;padding:28px}
 }
+.order{display:grid;gap:14px;max-width:640px;margin:auto}
+.order label{display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.order input,.order select,.order textarea{background:#0b1020;color:var(--text);border:1px solid #34435d;border-radius:10px;padding:11px;font:inherit}
+.order pre{white-space:pre-wrap;background:#0b1020;border:1px dashed #34435d;border-radius:10px;padding:12px;font-size:13px;color:var(--cyan);min-height:48px}
 </style>
 </head>
 <body>
@@ -125,6 +129,7 @@ footer {border-top:1px solid var(--border);padding:30px 0;color:var(--muted);fon
     <nav>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
+      <a href="#order">Order</a>
       <a href="#how">How It Works</a>
       <a class="btn" href="https://t.me/BoostNetOfficial" target="_blank" rel="noopener">Get Started ↗</a>
     </nav>
@@ -218,6 +223,32 @@ footer {border-top:1px solid var(--border);padding:30px 0;color:var(--muted);fon
   </div>
 </section>
 
+<section class="section" id="order">
+  <div class="container">
+    <div class="section-head">
+      <h2>Request a <span class="gradient">Campaign</span></h2>
+      <p>Fill in the details and send them to our team on Telegram.</p>
+    </div>
+    <div class="card order">
+      <label>Channel link<input id="o-link" placeholder="https://t.me/yourchannel"></label>
+      <label>Service
+        <select id="o-type">
+          <option>Channel Promotion</option>
+          <option>Community Growth</option>
+          <option>Ad Campaign</option>
+        </select>
+      </label>
+      <label>Target audience size<input id="o-qty" type="number" min="1" placeholder="e.g. 1000"></label>
+      <label>Notes<textarea id="o-note" rows="3"></textarea></label>
+      <pre id="o-out"></pre>
+      <div class="actions">
+        <button class="btn" id="o-copy" type="button">Copy Request</button>
+        <a class="btn btn-outline" href="https://t.me/BoostNetOfficial" target="_blank" rel="noopener">Open Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container">
     <div class="banner">
@@ -240,6 +271,11 @@ footer {border-top:1px solid var(--border);padding:30px 0;color:var(--muted);fon
 </footer>
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
+const f=["o-link","o-type","o-qty","o-note"].map(i=>document.getElementById(i));
+const out=document.getElementById("o-out");
+function render(){out.textContent=["Order request","Channel: "+f[0].value,"Service: "+f[1].value,"Audience: "+f[2].value,"Notes: "+f[3].value].join("\n")}
+f.forEach(e=>e.addEventListener("input",render));render();
+document.getElementById("o-copy").addEventListener("click",e=>{navigator.clipboard.writeText(out.textContent);e.target.textContent="Copied"});
 </script>
 </body>
 </html>
